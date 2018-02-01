@@ -1,7 +1,7 @@
 import os, re, csv, zipfile
 
 prezzi = [
-    {'id': '144', 'price': 10},
+    {'id': '144', 'price': 10, 'name': 'foobar'},
     {'id': '202', 'price': 10},
     {'id': '212', 'price': 10},
     {'id': '229', 'price': 10},
