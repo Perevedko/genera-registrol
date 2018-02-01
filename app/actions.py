@@ -1,7 +1,42 @@
 import os, re, csv, zipfile
 
-prezzi = { "75" : 10, "102" : 10, "108" : 10, "109" : 10, "111" : 10, "112" : 10, "113" : 10, "128" : 10, "129" : 10, "141" : 10, "144" :10, "149" : 10, "156" : 10, "162" : 10, "182" : 10, "202" : 10, "206" : 10, "207" : 10, "208" : 10, "211" : 10, "212" : 10, "222" : 10, "226" : 10, "227" : 10, "228" : 10, "229" : 10, "230" : 10, "231" : 10, "232" : 10, "233" : 10, "234" : 10, "237" : 10, "238" : 10, "239" : 10, "240" : 10 }
-# what is prezzi?
+prezzi = [
+    {'id': '144', 'price': 10},
+    {'id': '202', 'price': 10},
+    {'id': '212', 'price': 10},
+    {'id': '229', 'price': 10},
+    {'id': '207', 'price': 10},
+    {'id': '141', 'price': 10},
+    {'id': '211', 'price': 10},
+    {'id': '208', 'price': 10},
+    {'id': '228', 'price': 10},
+    {'id': '149', 'price': 10},
+    {'id': '227', 'price': 10},
+    {'id': '128', 'price': 10},
+    {'id': '75',  'price': 10},
+    {'id': '109', 'price': 10},
+    {'id': '111', 'price': 10},
+    {'id': '239', 'price': 10},
+    {'id': '113', 'price': 10},
+    {'id': '112', 'price': 10},
+    {'id': '102', 'price': 10},
+    {'id': '129', 'price': 10},
+    {'id': '237', 'price': 10},
+    {'id': '230', 'price': 10},
+    {'id': '222', 'price': 10},
+    {'id': '162', 'price': 10},
+    {'id': '233', 'price': 10},
+    {'id': '234', 'price': 10},
+    {'id': '156', 'price': 10},
+    {'id': '108', 'price': 10},
+    {'id': '226', 'price': 10},
+    {'id': '231', 'price': 10},
+    {'id': '182', 'price': 10},
+    {'id': '232', 'price': 10},
+    {'id': '206', 'price': 10},
+    {'id': '238', 'price': 10},
+    {'id': '240', 'price': 10}
+]
 
 csv_file = os.path.join(os.getcwd(), 'csv.csv')
 
@@ -34,7 +69,11 @@ def process_folder_to_csv(folder, csv_file=csv_file):
                     copie = int(totale[0])+int(sum(correzione))
                     # print int(totale[0]), copie
                     fp.seek(0)
-
+                    id = prodotto[0][0]
+                    prezzi_elem = {}
+                    for elem in prezzi:
+                        if elem.get('id') == id:
+                            prezzi_elem = elem
                     csvfile.writerow([
                         da_a[0][0][6:10],
                         da_a[0][0][3:5],
@@ -43,9 +82,9 @@ def process_folder_to_csv(folder, csv_file=csv_file):
                         copie,
                         copie*0.7,
                         copie*0.3,
-                        prezzi.get(prodotto[0][0], 0),
-                        copie*0.3*prezzi.get(prodotto[0][0], 0),
-                        copie*0.3*prezzi.get(prodotto[0][0], 0)*0.04
+                        prezzi_elem.get('price', 0),
+                        copie * 0.3 * prezzi_elem.get('price', 0),
+                        copie * 0.3 * prezzi_elem.get('price', 0) * 0.04
                     ])
 
 

@@ -40,6 +40,21 @@ def index():
             actions.unzip_file(zip_full_filename)
             actions.process_folder_to_csv(actions.unzip_folder)
             return return_csv(actions.csv_file)
+
+    table = []
+    for elem in actions.prezzi:
+        table.append('''
+        <tr>
+          <td>{id}</td>
+          <td>{name}</td>
+          <td>{price}</td>
+        </tr>
+        '''.format(
+            id=elem.get('id', ''),
+            name=elem.get('name', ''),
+            price=elem.get('price', '')
+        ))
+
     return '''
     <!doctype html>
     <title>Upload new File</title>
@@ -48,7 +63,15 @@ def index():
       <p><input type=file name=file>
          <input type=submit value=Upload>
     </form>
-    '''
+    <table border=1>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</price>
+      </tr>
+      {table}
+    </table>
+    '''.format(table=''.join(table))
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', debug=True, port=8080)
